@@ -47,7 +47,6 @@ def display_movie(data):
     st.subheader(data["Title"])
     col1, col2 = st.columns(2)
     with col1:
-        st.image(data["Poster"])
         if data["Poster"] != "N/A":
             st.image(data["Poster"])
     with col2:
@@ -68,6 +67,7 @@ if st.button("Search"):
         st.error("Movie not found.")
 if st.button("Random Movie"):
     movie = random.choice(movies)
+    st.success(f"🎲 Random pick: {movie['name']}")
     data = get_movie_data(movie["name"])
     display_movie(data)
 st.sidebar.title("Movie Library")
@@ -83,3 +83,7 @@ for index, movie in enumerate(sorted_movies):
         ):
             data = get_movie_data(movie["name"])
             display_movie(data)
+st.sidebar.metric(
+    "Movies saved",
+    len(movies)
+)
